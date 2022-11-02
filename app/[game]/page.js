@@ -5,14 +5,18 @@ import styles from '../../styles/Game.module.css'
 import Link from "next/link";
 
 async function getGameEvents(path) {
-  const events = await getData(`gameEvents/${path}`)
-  const score = events.reduce((goals, { eventType }) => {
-    if (eventType === "Goal") goals += 1
-    return goals
-  }, 0);
+  // const events = await getData(`gameEvents/${path}`)
+  // const score = events.reduce((goals, { eventType }) => {
+  //   if (eventType === "Goal") goals += 1
+  //   return goals
+  // }, 0);
+  // return {
+  //   score,
+  //   events
+  // }
   return {
-    score,
-    events
+    score : 0,
+    events: []
   }
 }
 

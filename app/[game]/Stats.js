@@ -14,10 +14,8 @@ export default function Stats({eventData}) {
     [awayId, homeId].map(teamId => teams.find(({id}) => id === teamId).teamName)
   ), [teams, awayId, homeId])
 
-  const awayTeamStats = []
-  const homeTeamStats = []
-  // const awayTeamStats = useMemo(() => getTeamStats(awayEvents), [awayEvents])
-  // const homeTeamStats = useMemo(() => getTeamStats(homeEvents), [homeEvents])
+  const awayTeamStats = useMemo(() => getTeamStats(awayEvents), [awayEvents])
+  const homeTeamStats = useMemo(() => getTeamStats(homeEvents), [homeEvents])
 
   return (
     <>
