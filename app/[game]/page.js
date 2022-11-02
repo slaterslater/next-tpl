@@ -35,7 +35,8 @@ export default async function GamePage({ params, searchParams }) {
   // const awayEvents = await getGameEvents(`${gameId}/${awayId}`)
   // const homeEvents = await getGameEvents(`${gameId}/${homeId}`)
   const awayEvents = await getData(`gameEvents/${gameId}/${awayId}`)
-  const homeEvents = await getData(`gameEvents/${gameId}/${homeId}`)
+  // const homeEvents = await getData(`gameEvents/${gameId}/${homeId}`)
+  const homeEvents = []
   const eventData = {
     awayId,
     homeId,
