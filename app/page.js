@@ -3,9 +3,11 @@
 
 import Schedule from "./Schedule";
 
+const {API_BASE, LEAGUE_ID} = process.env
+
 async function getLeagueGames() {
-  const {API_BASE, LEAGUE_ID} = process.env
-  const leagueGames = await fetch(`${API_BASE}/games/${LEAGUE_ID}`);
+  const url = `${API_BASE}/games/${LEAGUE_ID}`
+  const leagueGames = await fetch(url);
   return leagueGames.json();
 }
 

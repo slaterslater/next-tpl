@@ -6,6 +6,7 @@ import { useTeamContext } from "../teamContext"
 import styles from '../../styles/Game.module.css'
 
 export default function Stats({eventData}) {
+  console.log({eventData})
   const {awayId, homeId, awayEvents, homeEvents} = eventData
   const {teams} = useTeamContext()
   const [current, setCurrent] = useState(awayId)
