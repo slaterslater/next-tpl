@@ -1,5 +1,9 @@
-import { TeamProvider } from "./utils/teamContext";
-import { getData } from "./utils/data";
+// layout.js
+// Root layout
+
+import '../styles/global.css';
+import { TeamProvider } from "./teamContext";
+import { getData } from "./data";
 
 export default async function RootLayout({ children }) {
   const {LEAGUE_ID} = process.env
@@ -8,10 +12,9 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <title>Next.js</title>
+        <title>TPL scores</title>
       </head>
       <body>
-        <h1>...</h1>
         <TeamProvider value={{teams}}>
           {children}
         </TeamProvider>

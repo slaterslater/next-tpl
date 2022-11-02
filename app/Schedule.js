@@ -1,5 +1,9 @@
+// Schedule.js
+
 import { useMemo } from "react";
 import Link from 'next/link';
+import styles from '../styles/Schedule.module.css'
+
 
 export default function Schedule({season}) {
   const schedule = useMemo(() => {
@@ -31,21 +35,20 @@ export default function Schedule({season}) {
 
   }, [season]);
 
-  // console.log({ schedule });
-
   return schedule.map((week, i) => (
-    <div key={week.date}>
-      <div>{`Week ${schedule.length - i}: ${week.date.split(",")[0]}`}</div>
+    <div className={styles.week} key={week.date}>
+      <p>{`Week ${schedule.length - i}: ${week.date.split(",")[0]}`}</p>
       {week.games.map((game) => {
         const [hh, mm] = game.time.split("-")[0].split(":");
         const href = `/${game.id}-${game.awayTeamId}-${game.homeTeamId}`;
+        
         return (
-          <Link href={href} key={game.id}>
-            <span>{game.awayTeam}</span>
-            <div>
+          <Link className={styles.game} href={href} key={game.id}>
+            <div className={styles.field}>
               <span>{`${hh % 12}:${mm}`}</span>
               <span>{game.location}</span>
             </div>
+            <span>{game.awayTeam}</span>
             <span>{game.homeTeam}</span>
           </Link>
         );

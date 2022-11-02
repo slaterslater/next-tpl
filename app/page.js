@@ -1,3 +1,6 @@
+// page.js
+// Homepage
+
 import Schedule from "./Schedule";
 
 async function getLeagueGames() {

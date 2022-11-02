@@ -1,9 +1,11 @@
-import Score from "./Score";
+import { getData } from "../data";
+import Stats from "./Stats";
+
+import styles from '../../styles/Game.module.css'
+import Link from "next/link";
 
 async function getGameEvents(path) {
-  const url = `${process.env.API_BASE}/gameEvents/${path}`
-  const res = await fetch(url, { next: { revalidate: 10 } });
-  const events = await res.json()
+  const events = await getData(`gameEvents/${path}`)
   const score = events.reduce((goals, { eventType }) => {
     if (eventType === "Goal") goals += 1
     return goals
@@ -14,17 +16,27 @@ async function getGameEvents(path) {
   }
 }
 
+// maybe req should return events.pop()
+// 2 state variables 
+// check single event
+// add event to state
+// will need stats table and <PlayerRow />
+
 export default async function GamePage({ params, searchParams }) {
-// export default async function GamePage(props) {
   const [gameId, awayId, homeId] = params.game.split("-");
   const awayTeamData = await getGameEvents(`${gameId}/${awayId}`)
   const homeTeamData = await getGameEvents(`${gameId}/${homeId}`)
-  // console.log({awayTeamData, homeTeamData})
-  // return <Score awayId={awayId} awayScore={awayTeamData.score}  homeScore={homeTeamData.score} />
-  return <Score scoreData={{
+  const eventData = {
     awayId,
     homeId,
-    awayScore: awayTeamData.score,
-    homeScore: homeTeamData.score
-  }} />
+    awayEvents: awayTeamData.events,
+    homeEvents: homeTeamData.events,
+  }
+  return (
+    <main className={styles.game}>
+      <Link className={styles.navBack} href='/'>&#x2715;</Link>
+      <div className={styles.score}>{`${awayTeamData.score} - ${homeTeamData.score}`}</div>
+      <Stats eventData={eventData} />
+    </main>
+  )
 }

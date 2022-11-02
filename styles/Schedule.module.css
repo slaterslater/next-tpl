@@ -1,0 +1,32 @@
+ .week {
+  width:100%;
+  max-width: 900px;
+  display:flex;
+  flex-direction: column;
+  justify-content: 'center';
+  margin: 35px auto;
+}
+
+.week p {
+  font-size: 1.8rem;
+  margin-bottom: 35px;
+}
+
+.game { 
+  display: grid;
+  width: 100%;
+  line-height: 2.5;
+  grid-template-columns: 115px 1fr 1fr;
+  gap: 15px;
+  padding-left: 25px;
+  font-size: 1.25rem;
+} 
+
+.game:nth-child(even){
+  background-color: #efefef;
+}
+
+.field {
+  display: flex;
+  justify-content: space-between;
+}
