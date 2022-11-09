@@ -18,8 +18,6 @@ const getGameEvents = async ({gameId, awayId, homeId}) => ({
   })
 }) 
 
-
-
 export default async function GamePage({ params, searchParams }) {
   const [gameId, awayId, homeId] = params.game.split("-");
   const ids = {gameId, awayId, homeId}

@@ -1,9 +1,9 @@
 // Schedule.js
+'use client'
 
 import { useMemo } from "react";
 import Link from 'next/link';
 import styles from '../styles/Schedule.module.css'
-
 
 export default function Schedule({games}) {
   
