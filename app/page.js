@@ -14,5 +14,5 @@ const getGames = async () => ({
 
 export default async function Page() {
   const { games } = await getGames()
-  return <Schedule games={games} />;
+  return <Schedule games={[]} />;
 }

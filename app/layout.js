@@ -22,7 +22,7 @@ export default async function RootLayout({ children }) {
         <title>TPL scores</title>
       </head>
       <body>
-        <TeamProvider value={{teams}}>
+        <TeamProvider value={{teams: []}}>
           {children}
         </TeamProvider>
       </body>
