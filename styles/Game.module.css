@@ -36,7 +36,8 @@
   border-bottom: 5px solid black;
 }
 
-.isActive {
+/* uncomment when stats table is ready */
+ .inView {
   border-color: black;
   border-bottom-color: #efefef;
   background-color: #efefef;

@@ -5,10 +5,10 @@ import Link from 'next/link';
 import styles from '../styles/Schedule.module.css'
 
 
-export default function Schedule({season}) {
+export default function Schedule({games}) {
   
   const schedule = useMemo(() => {
-    const weeks = season.reduce((weeks, game) => {
+    const weeks = games.reduce((weeks, game) => {
       const { date } = game;
       const day = weeks.find((week) => week.date === date);
       if (!day) {
@@ -34,14 +34,14 @@ export default function Schedule({season}) {
       new Date(b.date).getTime() - new Date(a.date).getTime()
     );
 
-  }, [season]);
+  }, [games]);
 
   return schedule.map((week, i) => (
     <div className={styles.week} key={week.date}>
       <p>{`Week ${schedule.length - i}: ${week.date.split(",")[0]}`}</p>
       {week.games.map((game) => {
         const [hh, mm] = game.time.split("-")[0].split(":");
-        const href = `/${game.id}-${game.awayTeamId}-${game.homeTeamId}`;
+        const href = `/${game.gameId}-${game.awayTeamId}-${game.homeTeamId}`;
         
         return (
           <Link className={styles.game} href={href} key={game.id}>

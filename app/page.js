@@ -1,12 +1,18 @@
 // page.js
 // Homepage
 
-import { getData } from "./data";
 import Schedule from "./Schedule";
+import { db } from "./utils/server";
 
-const {LEAGUE_ID} = process.env
+const getGames = async () => ({
+  games: await db.game.findMany({
+    where: {
+      leagueId: process.env.LEAGUE_ID,
+    },
+  })
+})
 
 export default async function Page() {
-  const leagueGames = await getData(`games/${LEAGUE_ID}`)
-  return <Schedule season={leagueGames} />;
+  const { games } = await getGames()
+  return <Schedule games={games} />;
 }
