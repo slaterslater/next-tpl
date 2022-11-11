@@ -7,9 +7,6 @@ import styles from '../styles/Schedule.module.css'
 
 export default function Schedule({games}) {
 
-  console.log({games})
-  if (games) return <p>games</p>
-  
   const schedule = useMemo(() => {
     const weeks = games.reduce((weeks, game) => {
       const { date } = game;
