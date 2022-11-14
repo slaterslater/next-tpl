@@ -4,7 +4,6 @@
 
 import { useMemo, useState } from "react"
 import Link from "next/link"
-import styles from '../../styles/Game.module.css'
 import { countGoals } from "../utils/lib"
 import { useTeamContext } from "../context/teamContext"
 import Stats from "./Stats"
@@ -23,10 +22,10 @@ export default function GameView({ids, awayEvents, homeEvents}){
   ), [teams, awayId, homeId])
   
   return (
-    <main className={styles.game}>
-      <Link className={styles.navBack} href='/'>&#x2715;</Link>
-      <div className={styles.score}>{`${awayScore} - ${homeScore}`}</div>
-      <div className={styles.teams}>
+    <main>
+      <Link className="navBack" href='/'>&#x2715;</Link>
+      <div className="score">{`${awayScore} - ${homeScore}`}</div>
+      <div className="teams">
         <TeamButton 
           teamName={awayTeamName} 
           onClick={() => setInView(awayId)} 
@@ -58,6 +57,6 @@ export default function GameView({ids, awayEvents, homeEvents}){
 
 function TeamButton({teamName, onClick, inView}) {
   return (
-    <div className={`${styles.button} ${inView && styles.inView}`} onClick={onClick}>{teamName}</div>
+    <div className={`button ${inView && 'inView'}`} onClick={onClick}>{teamName}</div>
   )
 }

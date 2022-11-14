@@ -3,7 +3,7 @@
 
 import { TeamProvider } from "./context/teamContext";
 import { db } from './utils/server'
-import '../styles/global.css';
+import './global.css';
 
 const getTeams = async () => ({
     teams: await db.team.findMany({

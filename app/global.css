@@ -88,3 +88,120 @@ main {
     background: black;
   }
 } */
+
+/* SCHEDULE */
+
+.week {
+  width:100%;
+  max-width: 900px;
+  display:flex;
+  flex-direction: column;
+  justify-content: 'center';
+  margin: 35px auto;
+}
+
+.week p {
+  font-size: 1.8rem;
+  margin-bottom: 35px;
+}
+
+.game { 
+  display: grid;
+  width: 100%;
+  line-height: 2.5;
+  grid-template-columns: 115px 1fr 1fr;
+  gap: 15px;
+  padding-left: 25px;
+  font-size: 1.25rem;
+} 
+
+.game:nth-child(even){
+  background-color: #efefef;
+}
+
+.field {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+/* STATS PAGE */
+
+main {
+  margin-top: 25px;
+}
+
+.navBack {
+  font-size: 3rem;
+  color: black;
+  align-self:flex-end;
+  height:0;
+  transform: translate(-25px, 25px);
+}
+
+.score {
+  font-family: 'Courier New', monospace;
+  font-size: 4rem;
+  text-align: center;
+  margin: 18px auto;
+}
+
+.teams {
+  margin-top: 15px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: black;
+  gap: 5px
+}
+
+.button {
+  font-size: 1.5rem;
+  line-height: 3;
+  text-align: center;
+  cursor: pointer;
+  background-color: white;
+  border-top: 5px solid white;
+  border-bottom: 5px solid black;
+}
+
+/* uncomment when stats table is ready */
+ .inView {
+  border-color: black;
+  border-bottom-color: #efefef;
+  background-color: #efefef;
+}
+
+/* table styles */
+
+.stats {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.stats thead {
+  background-color: #efefef;
+  font-size: 1.5rem;
+  line-height: 3;
+}
+
+.stats tr {
+  padding: 0 20px;
+  display:grid;
+  grid-template-columns: 400px repeat(8, 1fr);
+}
+
+
+.stats tr *:first-child {
+  text-align: left;
+}
+
+.stats tr:nth-child(even) {
+  background-color: #efefef;
+}
+
+.stats td {
+  font-size: 1.5rem;
+  line-height: 3;
+}

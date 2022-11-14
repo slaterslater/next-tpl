@@ -4,7 +4,6 @@
 
 import { useEffect, useState } from "react"
 import useSWR from "swr"
-import styles from '../../styles/Game.module.css'
 import { processGameEvents, countGoals, getEvents } from "../utils/lib"
 
 export default function Stats({gameId, teamId, inView, events, setScore}) { 
@@ -32,7 +31,7 @@ export default function Stats({gameId, teamId, inView, events, setScore}) {
 
   if (!inView) return null
   return (
-    <table className={styles.stats}>
+    <table className="stats">
       <thead>
         <tr>
           <th></th>
