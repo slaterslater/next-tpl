@@ -93,26 +93,39 @@ main {
 
 .week {
   width:100%;
-  max-width: 900px;
+  max-width: 580px;
   display:flex;
   flex-direction: column;
   justify-content: 'center';
   margin: 35px auto;
+  padding-bottom: 25px;
 }
 
 .week p {
-  font-size: 1.8rem;
-  margin-bottom: 35px;
+  /* font-family: 'Courier New', monospace; */
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  padding-left: 15px;
+  /* font-weight: bold; */
+}
+
+.week p span {
+  font-size: 0.9rem;
+  font-weight: normal;
 }
 
 .game { 
   display: grid;
   width: 100%;
-  line-height: 2.5;
-  grid-template-columns: 115px 1fr 1fr;
-  gap: 15px;
-  padding-left: 25px;
-  font-size: 1.25rem;
+  /* line-height: 2.8; */
+  line-height: 1.5;
+  grid-template-columns: 75px 1fr 1fr;
+  gap: 10px;
+  padding: 10px 0;
+  padding-left: 15px;
+  font-size: 0.8rem;
+  min-height: 60px;
+  text-align: center;
 } 
 
 .game:nth-child(even){
@@ -128,11 +141,14 @@ main {
 /* STATS PAGE */
 
 main {
-  margin-top: 25px;
+  /* margin-top: 25px; */
+  max-width: 580px;
+  margin: 50px auto;
+  padding: 0 3px;
 }
 
 .navBack {
-  font-size: 3rem;
+  font-size: 2rem;
   color: black;
   align-self:flex-end;
   height:0;
@@ -141,7 +157,7 @@ main {
 
 .score {
   font-family: 'Courier New', monospace;
-  font-size: 4rem;
+  font-size: 3rem;
   text-align: center;
   margin: 18px auto;
 }
@@ -151,24 +167,33 @@ main {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  background-color: black;
-  gap: 5px
+  white-space : nowrap;
+  /* background-color: black; */
+  /* gap: 5px */
+  gap: 0;
+  margin: 25px 0px;
 }
 
 .button {
-  font-size: 1.5rem;
+  font-size: 0.8rem;
   line-height: 3;
   text-align: center;
   cursor: pointer;
-  background-color: white;
-  border-top: 5px solid white;
-  border-bottom: 5px solid black;
+  /* background-color: white; */
+  /* border-top: 5px solid white;
+  border-bottom: 5px solid black; */
+  /* border: 5px solid black */
+  border: 2px solid white;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+
+
 }
 
 /* uncomment when stats table is ready */
  .inView {
-  border-color: black;
-  border-bottom-color: #efefef;
+  border-color: darkgrey;
+  /* border-bottom-color: #efefef; */
   background-color: #efefef;
 }
 
@@ -178,18 +203,23 @@ main {
   width: 100%;
   border-collapse: collapse;
   text-align: center;
+  /* border: 5px solid black;
+  border-top: none; */
+  /* border-bottom: 1px solid darkgrey; */
 }
 
 .stats thead {
-  background-color: #efefef;
-  font-size: 1.5rem;
+  background-color: #dcdcdc;
+  font-size: 0.75rem;
   line-height: 3;
 }
 
 .stats tr {
   padding: 0 20px;
   display:grid;
-  grid-template-columns: 400px repeat(8, 1fr);
+  grid-template-columns: 130px repeat(8, 1fr);
+  white-space : nowrap
+  /* min-height: 60px; */
 }
 
 
@@ -201,7 +231,13 @@ main {
   background-color: #efefef;
 }
 
+.stats tr td:nth-child(5), .stats tr td:nth-child(7) {
+  border-right: 1px solid darkgrey;
+}
+
 .stats td {
-  font-size: 1.5rem;
-  line-height: 3;
+  font-size: 0.9rem;
+  line-height: 2;
+  
+  overflow: hidden;
 }
