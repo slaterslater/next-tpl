@@ -61,7 +61,7 @@ export default function GameView({ids, awayEvents, homeEvents}){
         data={homeGameData}
         setScore={setHomeScore}
       />
-      <Link href='/'>back</Link>
+      {/* <Link href='/'>back</Link> */}
     </main>
   )
 }
