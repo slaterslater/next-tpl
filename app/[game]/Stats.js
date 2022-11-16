@@ -4,28 +4,25 @@
 
 import { useEffect, useState } from "react"
 import useSWR from "swr"
-import { processGameEvents, countGoals, getEvents } from "../utils/lib"
+import { statNames, processGameEvents, getEvents } from "../utils/lib"
 
-export default function Stats({gameId, teamId, inView, events, setScore}) { 
+export default function Stats({gameId, teamId, inView, data, setScore}) { 
 
-  const [gameData, setGameData] = useState(() => 
-    processGameEvents({ players: [], lastSequence: 0}, events)
-  )
-  
-  const fetchProps = {
+  const [gameData, setGameData] = useState(data)
+
+  const args = {
     gameId, 
     teamId, 
-    lastSequence: gameData.lastSequence
+    lastSequence: gameData.lastEvent.sequence
   }
 
-  const { data : newData } = useSWR(fetchProps, getEvents)
+  const { data : newData } = useSWR(args, getEvents)
 
   useEffect(() => {
     if (!newData) return
     const { events } = newData
     const updatedGameData = processGameEvents(gameData, events)
-    const goals = countGoals(events)
-    setScore(prev => prev + goals)
+    setScore(updatedGameData.total.Goal)
     setGameData(updatedGameData)
   }, [gameData, newData, setScore])
 
@@ -49,14 +46,9 @@ export default function Stats({gameId, teamId, inView, events, setScore}) {
       {gameData.players.map(({id, playerName, stats}) => (
         <tr key={id}>
           <td>{playerName}</td>
-          <td>{stats["Goal"]}</td>
-          <td>{stats["Assist"]}</td>
-          <td>{stats["2nd Assist"]}</td>
-          <td>{stats["D"]}</td>
-          <td>{stats["TA"]}</td>
-          <td>{stats["Drop"]}</td>
-          <td>{stats["Male"]}</td>
-          <td>{stats["Female"]}</td>
+          {statNames.map(name => 
+            <td key={`player-${name}`}>{stats[name]}</td>
+          )}
         </tr>
       ))}
       </tbody>

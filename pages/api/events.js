@@ -1,4 +1,4 @@
-// evnets.js
+// events.js
 // prisma does not work on the client
 // client component can fetch this api route
 
@@ -17,3 +17,5 @@ export default async function handler(req, res) {
     })
   res.status(200).json({ events })
 }
+
+//2DO don't return gameId, teamId, id,

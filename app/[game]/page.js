@@ -7,7 +7,7 @@ const getGameEvents = async ({gameId, awayId, homeId}) => ({
   awayEvents : await db.event.findMany({
     where: {
       gameId: gameId,
-      teamId: awayId
+      teamId: awayId,
     },
   }),
   homeEvents : await db.event.findMany({
@@ -18,7 +18,7 @@ const getGameEvents = async ({gameId, awayId, homeId}) => ({
   })
 }) 
 
-export default async function GamePage({ params, searchParams }) {
+export default async function GamePage({ params }) {
   const [gameId, awayId, homeId] = params.game.split("-");
   const ids = {gameId, awayId, homeId}
   const {awayEvents, homeEvents} = await getGameEvents(ids)
