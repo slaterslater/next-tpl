@@ -12,8 +12,6 @@ const getGames = async () => ({
   })
 })
 
-// install plugin mentioneed in netlify blog
-
 export default async function Page() {
   const { games } = await getGames()
   return <Schedule games={games} />;

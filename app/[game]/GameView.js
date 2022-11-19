@@ -3,14 +3,15 @@
 'use client'
 
 import { useMemo, useState } from "react"
-import Link from "next/link"
-import { processGameEvents } from "../utils/lib"
 import { useTeamContext } from "../context/teamContext"
 import Stats from "./Stats"
 
-export default function GameView({ids, awayEvents, homeEvents}){
+export default function GameView({ids}){
   
   const {gameId, awayId, homeId} = ids
+  const [awayScore, setAwayScore] = useState(0)
+  const [homeScore, setHomeScore] = useState(0)
+  const [inView, setInView] = useState(awayId)
   const { teams } = useTeamContext()
 
   const [awayTeamName, homeTeamName] = useMemo(() => (
@@ -18,22 +19,9 @@ export default function GameView({ids, awayEvents, homeEvents}){
       teams.find(team => team.teamId === teamId).teamName
     ))  
   ), [teams, awayId, homeId])
-  
-  const awayGameData = useMemo(() => (
-    processGameEvents(null, awayEvents)
-  ), [awayEvents])
-  
-  const homeGameData = useMemo(() => (
-    processGameEvents(null, homeEvents)
-  ), [homeEvents])
-
-  const [awayScore, setAwayScore] = useState(awayGameData.total.Goal)
-  const [homeScore, setHomeScore] = useState(homeGameData.total.Goal)
-  const [inView, setInView] = useState(awayId)
 
   return (
     <main>
-      {/* <Link className="navBack" href='/'>&#x2715;</Link> */}
       <div className="score">{`${awayScore} - ${homeScore}`}</div>
       <div className="teams">
         <TeamButton 
@@ -48,20 +36,15 @@ export default function GameView({ids, awayEvents, homeEvents}){
         />
       </div>
       <Stats
-        gameId={gameId}
-        teamId={awayId}
         inView={inView === awayId}
-        data={awayGameData}
+        path={`${gameId}/${awayId}`}
         setScore={setAwayScore}
       />
       <Stats
-        gameId={gameId}
-        teamId={homeId}
         inView={inView === homeId}
-        data={homeGameData}
+        path={`${gameId}/${homeId}`}
         setScore={setHomeScore}
       />
-      {/* <Link href='/'>back</Link> */}
     </main>
   )
 }

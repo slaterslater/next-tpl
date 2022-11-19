@@ -1,30 +1,34 @@
 // Stats.js
 
-'use client'
-
 import { useEffect, useState } from "react"
 import useSWR from "swr"
-import { statNames, processGameEvents, getEvents } from "../utils/lib"
+import { blankStats, processGameEvents, statNames } from "../utils/lib"
 
-export default function Stats({gameId, teamId, inView, data, setScore}) { 
+const getData = async path => {
+  const url = `${process.env.NEXT_PUBLIC_API_BASE}/gameEvents/${path}`
+  const res = await fetch(url)
+  return res.json()
+}
 
-  const [gameData, setGameData] = useState(data)
-
-  const args = {
-    gameId, 
-    teamId, 
-    lastSequence: gameData.lastEvent.sequence
+export default function Stats({ inView, path, setScore}) { 
+  
+  const initValues = {
+      total: {...blankStats},
+      players: [],
+      lastEvent: { sequence: 0 }
   }
-
-  const { data : newData } = useSWR(args, getEvents)
+  
+  const [gameData, setGameData] = useState(initValues)
+  const { data } = useSWR(path, getData)
 
   useEffect(() => {
-    if (!newData) return
-    const { events } = newData
-    const updatedGameData = processGameEvents(gameData, events)
-    setScore(updatedGameData.total.Goal)
+    if (!data) return
+    const { sequence } = gameData.lastEvent
+    const newData = data.slice(sequence)
+    const updatedGameData = processGameEvents(gameData, newData)
     setGameData(updatedGameData)
-  }, [gameData, newData, setScore])
+    setScore(updatedGameData.total.Goal)
+  }, [data, gameData, setScore])
 
   if (!inView) return null
   return (
@@ -43,14 +47,20 @@ export default function Stats({gameId, teamId, inView, data, setScore}) {
         </tr>
       </thead>
       <tbody>
-      {gameData.players.map(({id, playerName, stats}) => (
-        <tr key={id}>
-          <td>{playerName}</td>
+        {gameData.players.map(({id, playerName, stats}) => (
+          <tr key={id}>
+            <td>{playerName}</td>
+            {statNames.map(name => 
+              <td key={`player-${name}`}>{stats[name]}</td>
+            )}
+          </tr>
+        ))}
+        <tr>
+          <td>total</td>
           {statNames.map(name => 
-            <td key={`player-${name}`}>{stats[name]}</td>
+            <td key={`total-${name}`}>{gameData.total[name]}</td>
           )}
         </tr>
-      ))}
       </tbody>
     </table>
   )

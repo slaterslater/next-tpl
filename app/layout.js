@@ -14,7 +14,7 @@ const getTeams = async () => ({
   })
 
 export default async function RootLayout({ children }) {
-  const { teams } = await getTeams()
+  const {teams} = await getTeams()
 
   return (
     <html lang="en">

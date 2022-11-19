@@ -4,14 +4,16 @@
 export const statNames = ["Goal","Assist","2nd Assist","D","TA","Drop","Male","Female"];
 export const blankStats = Object.fromEntries(statNames.map(name => [name, 0]))
 
-export const processGameEvents = (gameData, newEvents) => (
-  newEvents.reduce(({total, players, lastEvent}, e) => {
+export const processGameEvents = (staleData, newEvents) => (
+  newEvents.reduce((gameData, event) => {
+    
+    const {total, players, lastEvent} = gameData
     
     const { 
       eventType, 
-      sequence, 
       player : {id, playerName, gender} 
-    } = e
+    } = event
+
     const initPlayer = {
       id, 
       playerName, 
@@ -42,27 +44,20 @@ export const processGameEvents = (gameData, newEvents) => (
       total[eventType] += 1
     }
     players[playerIndex] = player
-    
-    return { 
-      total,
-      players, 
-      lastEvent: e 
-    }
+    gameData.lastEvent = event
 
-  }, gameData || {
-    total: {...blankStats},
-    players: [],
-    lastEvent: {sequence: 0}
-  })
+    return gameData
+
+  }, staleData)
 )
 
-export const getEvents = async ({gameId, teamId, lastSequence}) => {
-  const data = await fetch('/api/events', {
-    method: 'POST',
-    body: JSON.stringify({gameId, teamId, lastSequence}),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-  return data.json()
-}
+// export const getEvents = async ({gameId, teamId, lastSequence}) => {
+//   const data = await fetch('/api/events', {
+//     method: 'POST',
+//     body: JSON.stringify({gameId, teamId, lastSequence}),
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//   })
+//   return data.json()
+// }
