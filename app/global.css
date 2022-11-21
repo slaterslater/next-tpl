@@ -147,7 +147,6 @@ main {
 /* STATS PAGE */
 
 main {
-  /* margin-top: 25px; */
   max-width: 580px;
   margin: auto;
   margin-top: 20px;
@@ -185,8 +184,6 @@ main a {
   display: grid;
   grid-template-columns: 1fr 1fr;
   white-space : nowrap;
-  /* background-color: black; */
-  /* gap: 5px */
   gap: 0;
   margin: 25px 0px;
 }
@@ -196,21 +193,13 @@ main a {
   line-height: 3;
   text-align: center;
   cursor: pointer;
-  /* background-color: white; */
-  /* border-top: 5px solid white;
-  border-bottom: 5px solid black; */
-  /* border: 5px solid black */
   border: 2px solid white;
   -webkit-tap-highlight-color: transparent;
   overflow: hidden;
-
-
 }
 
-/* uncomment when stats table is ready */
  .inView {
   border-color: darkgrey;
-  /* border-bottom-color: #efefef; */
   background-color: #efefef;
 }
 
@@ -226,13 +215,14 @@ main a {
 .stats tr {
   display:grid;
   grid-template-columns: 130px repeat(8, 1fr);
-  white-space : nowrap
+  white-space : nowrap;
 }
 
 .stats tr *:first-child {
   text-align: left;
   font-family: Tahoma, sans-serif;
   padding-left: 10px;
+  font-size: 0.75rem;
 }
 
 .stats tr:nth-child(even) {
@@ -247,14 +237,16 @@ main a {
   background-color: #dcdcdc;
   font-size: 0.75rem;
   font-weight: bold;
-  line-height: 3;
+  line-height: 0;
+  padding: 20px 0;
   border-color: none;
   border:none;
   
 }
 
 .stats td {
-  font-size: 0.9rem;
-  line-height: 2;
+  font-size: 1rem;
+  line-height: 0;
+  padding: 20px 0;
   overflow: hidden;
 }
