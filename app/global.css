@@ -220,28 +220,19 @@ main a {
   width: 100%;
   border-collapse: collapse;
   text-align: center;
-  /* border: 5px solid black;
-  border-top: none; */
-  /* border-bottom: 1px solid darkgrey; */
-}
-
-.stats thead {
-  background-color: #dcdcdc;
-  font-size: 0.75rem;
-  line-height: 3;
+  font-family: 'Courier New', monospace;
 }
 
 .stats tr {
-  padding: 0 20px;
   display:grid;
   grid-template-columns: 130px repeat(8, 1fr);
   white-space : nowrap
-  /* min-height: 60px; */
 }
-
 
 .stats tr *:first-child {
   text-align: left;
+  font-family: Tahoma, sans-serif;
+  padding-left: 10px;
 }
 
 .stats tr:nth-child(even) {
@@ -252,9 +243,18 @@ main a {
   border-right: 1px solid darkgrey;
 }
 
+.stats thead th, .stats tr.total td {
+  background-color: #dcdcdc;
+  font-size: 0.75rem;
+  font-weight: bold;
+  line-height: 3;
+  border-color: none;
+  border:none;
+  
+}
+
 .stats td {
   font-size: 0.9rem;
   line-height: 2;
-  
   overflow: hidden;
 }

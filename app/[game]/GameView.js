@@ -4,14 +4,22 @@
 
 import { useMemo, useState } from "react"
 import { useTeamContext } from "../context/teamContext"
+import { blankStats } from "../utils/lib"
 import Stats from "./Stats"
 
 export default function GameView({ids}){
   
   const {gameId, awayId, homeId} = ids
-  const [awayScore, setAwayScore] = useState(0)
-  const [homeScore, setHomeScore] = useState(0)
+  const initTeam = () => ({
+    total: {...blankStats},
+    lastEvent: { sequence: 0 },
+    players: [],
+  })
+
+  const [awayTeam, setAwayTeam] = useState(() => initTeam())
+  const [homeTeam, setHomeTeam] = useState(() => initTeam())
   const [inView, setInView] = useState(awayId)
+
   const { teams } = useTeamContext()
 
   const [awayTeamName, homeTeamName] = useMemo(() => (
@@ -19,10 +27,12 @@ export default function GameView({ids}){
       teams.find(team => team.teamId === teamId).teamName
     ))  
   ), [teams, awayId, homeId])
+  
+  const score = useMemo(() => `${awayTeam.total.Goal} - ${homeTeam.total.Goal}`, [awayTeam, homeTeam])
 
   return (
     <main>
-      <div className="score">{`${awayScore} - ${homeScore}`}</div>
+      <div className="score" key={score}>{score}</div>
       <div className="teams">
         <TeamButton 
           teamName={awayTeamName} 
@@ -38,12 +48,14 @@ export default function GameView({ids}){
       <Stats
         inView={inView === awayId}
         path={`${gameId}/${awayId}`}
-        setScore={setAwayScore}
+        setTeam={setAwayTeam}
+        team={awayTeam}
       />
       <Stats
         inView={inView === homeId}
         path={`${gameId}/${homeId}`}
-        setScore={setHomeScore}
+        setTeam={setHomeTeam}
+        team={homeTeam}
       />
     </main>
   )

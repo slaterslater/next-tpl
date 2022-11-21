@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import useSWR from "swr"
-import { blankStats, processGameEvents, statNames } from "../utils/lib"
+import { processGameEvents, statNames } from "../utils/lib"
 
 const getData = async path => {
   const url = `${process.env.NEXT_PUBLIC_API_BASE}/gameEvents/${path}`
@@ -10,25 +10,21 @@ const getData = async path => {
   return res.json()
 }
 
-export default function Stats({ inView, path, setScore}) { 
+export default function Stats({ inView, path, team, setTeam}) { 
   
-  const initValues = {
-      total: {...blankStats},
-      players: [],
-      lastEvent: { sequence: 0 }
-  }
-  
-  const [gameData, setGameData] = useState(initValues)
   const { data } = useSWR(path, getData)
 
   useEffect(() => {
-    if (!data) return
-    const { sequence } = gameData.lastEvent
+    const { sequence } = team.lastEvent
+    if (!data || sequence === data.length) return
     const newData = data.slice(sequence)
-    const updatedGameData = processGameEvents(gameData, newData)
-    setGameData(updatedGameData)
-    setScore(updatedGameData.total.Goal)
-  }, [data, gameData, setScore])
+    const updatedGameData = processGameEvents(team, newData)
+    // setTeam({
+    //   ...team,
+    //   ...updatedGameData
+    // })
+    setTeam({...updatedGameData})
+  }, [data, team, setTeam])
 
   if (!inView) return null
   return (
@@ -47,7 +43,7 @@ export default function Stats({ inView, path, setScore}) {
         </tr>
       </thead>
       <tbody>
-        {gameData.players.map(({id, playerName, stats}) => (
+        {team.players.map(({id, playerName, stats}) => (
           <tr key={id}>
             <td>{playerName}</td>
             {statNames.map(name => 
@@ -55,10 +51,10 @@ export default function Stats({ inView, path, setScore}) {
             )}
           </tr>
         ))}
-        <tr>
-          <td>total</td>
+        <tr className="total">
+          <td></td>
           {statNames.map(name => 
-            <td key={`total-${name}`}>{gameData.total[name]}</td>
+            <td key={`total-${name}`}>{team.total[name]}</td>
           )}
         </tr>
       </tbody>
