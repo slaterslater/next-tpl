@@ -2,9 +2,16 @@
 // helper functions
 
 export const statNames = ["Goal","Assist","2nd Assist","D","TA","Drop","Male","Female"];
+
 export const blankStats = Object.fromEntries(statNames.map(name => [name, 0]))
 
-export const processGameEvents = (staleData, newEvents) => (
+export const initTeam = () => ({
+  total: {...blankStats},
+  lastEvent: { sequence: 0 },
+  players: [],
+})
+
+export const processTeamData = (staleData, newEvents) => (
   newEvents.reduce((gameData, event) => {
     
     const {total, players, lastEvent} = gameData
@@ -50,14 +57,3 @@ export const processGameEvents = (staleData, newEvents) => (
 
   }, staleData)
 )
-
-// export const getEvents = async ({gameId, teamId, lastSequence}) => {
-//   const data = await fetch('/api/events', {
-//     method: 'POST',
-//     body: JSON.stringify({gameId, teamId, lastSequence}),
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   })
-//   return data.json()
-// }

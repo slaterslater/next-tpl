@@ -1,23 +1,63 @@
 // [game]/page.js
 
-import GameView from "./GameView";
+'use client'
 
-// const getGameEvents = async ({gameId, awayId, homeId}) => ({
-//   awayEvents : await db.event.findMany({
-//     where: {
-//       gameId: gameId,
-//       teamId: awayId,
-//     },
-//   }),
-//   homeEvents : await db.event.findMany({
-//     where: {
-//       gameId: gameId,
-//       teamId: homeId
-//     },
-//   })
-// }) 
+import { useMemo, useState } from "react"
+import { useTeamContext } from "../context/teamContext"
+import { initTeam } from "../utils/lib"
+import Stats from "./Stats"
 
-export default async function GamePage({ params }) {
+export default function GamePage({ params }) {
+  
   const [gameId, awayId, homeId] = params.game.split("-");
-  return <GameView ids={{gameId, awayId, homeId}} />
+  
+  const [inView, setInView] = useState(awayId)
+  const [awayTeam, setAwayTeam] = useState(() => initTeam())
+  const [homeTeam, setHomeTeam] = useState(() => initTeam())
+
+  const { teams } = useTeamContext()
+
+  const [awayTeamName, homeTeamName] = useMemo(() => (
+    [awayId, homeId].map(teamId => (
+      teams.find(team => team.teamId === teamId).teamName
+    ))  
+  ), [teams, awayId, homeId])
+  
+  const score = useMemo(() => `${awayTeam.total.Goal} - ${homeTeam.total.Goal}`, [awayTeam, homeTeam])
+
+  return (
+    <main>
+      <div className="score" key={score}>{score}</div>
+      <div className="teams">
+        <TeamButton 
+          teamName={awayTeamName} 
+          onClick={() => setInView(awayId)} 
+          inView={inView === awayId} 
+        />
+        <TeamButton 
+          teamName={homeTeamName} 
+          onClick={() => setInView(homeId)} 
+          inView={inView === homeId} 
+        />
+      </div>
+      <Stats
+        inView={inView === awayId}
+        path={`${gameId}/${awayId}`}
+        setTeam={setAwayTeam}
+        team={awayTeam}
+      />
+      <Stats
+        inView={inView === homeId}
+        path={`${gameId}/${homeId}`}
+        setTeam={setHomeTeam}
+        team={homeTeam}
+      />
+    </main>
+  )
+}
+
+function TeamButton({teamName, onClick, inView}) {
+  return (
+    <div className={`button ${inView && 'inView'}`} onClick={onClick}>{teamName}</div>
+  )
 }

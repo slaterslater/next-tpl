@@ -1,8 +1,8 @@
 // Stats.js
 
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import useSWR from "swr"
-import { processGameEvents, statNames } from "../utils/lib"
+import { processTeamData, statNames } from "../utils/lib"
 
 const getData = async path => {
   const url = `${process.env.NEXT_PUBLIC_API_BASE}/gameEvents/${path}`
@@ -18,12 +18,8 @@ export default function Stats({ inView, path, team, setTeam}) {
     const { sequence } = team.lastEvent
     if (!data || sequence === data.length) return
     const newData = data.slice(sequence)
-    const updatedGameData = processGameEvents(team, newData)
-    // setTeam({
-    //   ...team,
-    //   ...updatedGameData
-    // })
-    setTeam({...updatedGameData})
+    const updatedTeamData = processTeamData(team, newData)
+    setTeam({...updatedTeamData})
   }, [data, team, setTeam])
 
   if (!inView) return null
