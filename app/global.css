@@ -173,9 +173,9 @@ main a {
 
 .score {
   font-family: 'Courier New', monospace;
-  font-size: 3rem;
+  font-size: 2.5rem;
   text-align: center;
-  margin: 18px auto;
+  margin: 10px auto;
 }
 
 .teams {
@@ -233,20 +233,25 @@ main a {
   border-right: 1px solid darkgrey;
 }
 
+.stats tr.callahan td:nth-child(2) {
+  background: url("/circle.png") no-repeat center;
+} 
+
 .stats thead th, .stats tr.total td {
   background-color: #dcdcdc;
   font-size: 0.75rem;
   font-weight: bold;
   line-height: 0;
-  padding: 20px 0;
+  padding: 16px 0;
   border-color: none;
   border:none;
   
 }
 
 .stats td {
-  font-size: 1rem;
+  
+  font-size: 0.9rem;
   line-height: 0;
-  padding: 20px 0;
+  padding: 16px 0;
   overflow: hidden;
 }

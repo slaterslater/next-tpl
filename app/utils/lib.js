@@ -49,6 +49,10 @@ export const processTeamData = (staleData, newEvents) => (
     if (eventType) {
       player.stats[eventType] += 1
       total[eventType] += 1
+      // check if callahan
+      if (eventType === 'Goal' && lastEvent.eventType !== 'Assist') {
+        player.stats.callahan = true
+      }
     }
     players[playerIndex] = player
     gameData.lastEvent = event

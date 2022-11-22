@@ -45,7 +45,7 @@ export default function Stats({ inView, path, team, setTeam}) {
       </thead>
       <tbody>
         {team.players.map(({id, playerName, stats}) => (
-          <tr key={id}>
+          <tr key={id} className={stats.callahan ? 'callahan' : null}>
             <td>{playerName}</td>
             {statNames.map(name => 
               <td key={`player-${name}`}>{stats[name]}</td>
