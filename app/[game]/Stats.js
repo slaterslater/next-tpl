@@ -16,10 +16,15 @@ export default function Stats({ inView, path, team, setTeam}) {
 
   useEffect(() => {
     const { sequence } = team.lastEvent
-    if (!data || sequence === data.length) return
-    const newData = data.slice(sequence)
+    if (!data || data.length === sequence) return
+    
+    const newData = data
+      .slice(sequence)
+      .sort((a, b) => a.sequence - b.sequence)
+
     const updatedTeamData = processTeamData(team, newData)
     setTeam({...updatedTeamData})
+
   }, [data, team, setTeam])
 
   if (!inView) return null
