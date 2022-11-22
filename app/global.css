@@ -150,7 +150,7 @@ main {
   max-width: 580px;
   margin: auto;
   margin-top: 20px;
-  padding: 0 3px;
+  padding: 0 5px;
 }
 
 main a {
@@ -185,7 +185,7 @@ main a {
   grid-template-columns: 1fr 1fr;
   white-space : nowrap;
   gap: 0;
-  margin: 25px 0px;
+  margin: 20px 0px;
 }
 
 .button {
@@ -249,9 +249,8 @@ main a {
 }
 
 .stats td {
-  
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   line-height: 0;
-  padding: 16px 0;
+  padding: 15px 0;
   overflow: hidden;
 }
