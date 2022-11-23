@@ -39,7 +39,7 @@ export default function Schedule({games}) {
       <p>{`Week ${schedule.length - i}:`} <span>{`${week.date.split(",")[0]}`}</span></p>
       {week.games.map((game) => {
         const [hh, mm] = game.time.split("-")[0].split(":");
-        const href = `/${game.gameId}-${game.awayTeamId}-${game.homeTeamId}`;
+        const href = `/${game.id}-${game.awayTeamId}-${game.homeTeamId}`;
         
         return (
           <Link className="game" href={href} key={game.id}>

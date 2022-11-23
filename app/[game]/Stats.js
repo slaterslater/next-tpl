@@ -2,13 +2,7 @@
 
 import { useEffect } from "react"
 import useSWR from "swr"
-import { processTeamData, statNames } from "../utils/lib"
-
-const getData = async path => {
-  const url = `${process.env.NEXT_PUBLIC_API_BASE}/gameEvents/${path}`
-  const res = await fetch(url)
-  return res.json()
-}
+import { getData, processTeamData, statNames } from "../utils/lib"
 
 export default function Stats({ inView, path, team, setTeam}) { 
   

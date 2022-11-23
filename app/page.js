@@ -2,17 +2,11 @@
 // Homepage
 
 import Schedule from "./Schedule";
-import { db } from "./utils/server";
-
-const getGames = async () => ({
-  games: await db.game.findMany({
-    where: {
-      leagueId: process.env.LEAGUE_ID,
-    },
-  })
-})
+import { getData } from "./utils/lib";
 
 export default async function Page() {
-  const { games } = await getGames()
+  
+  const games = await getData(`games/${process.env.LEAGUE_ID}`)
+
   return <Schedule games={games} />;
 }

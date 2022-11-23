@@ -10,20 +10,23 @@ import Stats from "./Stats"
 export default function GamePage({ params }) {
   
   const [gameId, awayId, homeId] = params.game.split("-");
-  
-  const [inView, setInView] = useState(awayId)
-  const [awayTeam, setAwayTeam] = useState(() => initTeam())
-  const [homeTeam, setHomeTeam] = useState(() => initTeam())
 
   const { teams } = useTeamContext()
 
   const [awayTeamName, homeTeamName] = useMemo(() => (
     [awayId, homeId].map(teamId => (
-      teams.find(team => team.teamId === teamId).teamName
+      teams.find(team => team.id === teamId).teamName
     ))  
   ), [teams, awayId, homeId])
+
+  const [inView, setInView] = useState(awayId)
+
+  const [awayTeam, setAwayTeam] = useState(() => initTeam())
+  const [homeTeam, setHomeTeam] = useState(() => initTeam())
   
-  const score = useMemo(() => `${awayTeam.total.Goal} - ${homeTeam.total.Goal}`, [awayTeam, homeTeam])
+  const score = useMemo(() => (
+    `${awayTeam.total.Goal} - ${homeTeam.total.Goal}`
+  ), [awayTeam, homeTeam])
 
   return (
     <main>
@@ -42,13 +45,13 @@ export default function GamePage({ params }) {
       </div>
       <Stats
         inView={inView === awayId}
-        path={`${gameId}/${awayId}`}
+        path={`gameEvents/${gameId}/${awayId}`}
         setTeam={setAwayTeam}
         team={awayTeam}
       />
       <Stats
         inView={inView === homeId}
-        path={`${gameId}/${homeId}`}
+        path={`gameEvents/${gameId}/${homeId}`}
         setTeam={setHomeTeam}
         team={homeTeam}
       />

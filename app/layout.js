@@ -2,19 +2,12 @@
 // Root layout
 
 import { TeamProvider } from "./context/teamContext";
-import { db } from './utils/server'
+import { getData } from "./utils/lib";
 import './global.css';
 
-const getTeams = async () => ({
-    teams: await db.team.findMany({
-      where: {
-        leagueId: process.env.LEAGUE_ID,
-      },
-    })
-  })
-
 export default async function RootLayout({ children }) {
-  const {teams} = await getTeams()
+  
+  const teams = await getData(`teams/${process.env.LEAGUE_ID}`)
 
   return (
     <html lang="en">
