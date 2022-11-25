@@ -6,7 +6,7 @@ import { getData, processTeamData, statNames } from "../utils/lib"
 
 export default function Stats({ inView, path, team, setTeam}) { 
   
-  const { data } = useSWR(path, getData)
+  const { data } = useSWR(path, getData, { refreshInterval: 5000 })
 
   useEffect(() => {
     const { sequence } = team.lastEvent
