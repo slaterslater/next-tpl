@@ -42,7 +42,7 @@ export default function Schedule({games}) {
         const href = `/${game.id}-${game.awayTeamId}-${game.homeTeamId}`;
         
         return (
-          <Link className="game" href={href} key={game.id}>
+          <Link className="game" href={href} key={game.id} replace>
             <div className="field">
               <span>{`${hh % 12}:${mm}`}</span>
               <span>{game.location}</span>

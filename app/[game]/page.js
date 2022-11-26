@@ -2,12 +2,18 @@
 
 'use client'
 
-import { useMemo, useState } from "react"
+import Link from "next/link"
+import { useEffect, useMemo, useState } from "react"
 import { useTeamContext } from "../context/teamContext"
 import { initTeam } from "../utils/lib"
 import Stats from "./Stats"
 
 export default function GamePage({ params }) {
+
+  // url cleaner
+  useEffect(()=> {
+    window.history.replaceState(null, '', '/')
+  }, [])
   
   const [gameId, awayId, homeId] = params.game.split("-");
 
@@ -55,6 +61,7 @@ export default function GamePage({ params }) {
         setTeam={setHomeTeam}
         team={homeTeam}
       />
+      <Link href='/'>back</Link>
     </main>
   )
 }

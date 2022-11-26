@@ -146,6 +146,8 @@ main {
 
 /* STATS PAGE */
 
+
+
 main {
   max-width: 580px;
   margin: auto;
@@ -156,11 +158,13 @@ main {
 main a {
   text-align: center;
   margin:auto;
-  margin-top: 30px;
-  padding: 20px 50px;
+  margin-top: 10px;
+  padding: 18px 50px;
   background-color: #efefef;;
   border: 2px solid darkgrey;
   line-height: 0;
+  font-size: 0.8rem;
+    /* line-height: 3; */
 }
 
 .navBack {
@@ -173,19 +177,20 @@ main a {
 
 .score {
   font-family: 'Courier New', monospace;
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   text-align: center;
-  margin: 10px auto;
+  margin: 15px auto;
 }
 
 .teams {
-  margin-top: 15px;
+  /* margin-top: 15px; */
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   white-space : nowrap;
   gap: 0;
-  margin: 20px 0px;
+  /* margin: 12px 0px; */
+  margin-bottom: 12px;
 }
 
 .button {
@@ -253,4 +258,19 @@ main a {
   line-height: 0;
   padding: 15px 0;
   overflow: hidden;
+}
+
+@media screen and (min-width: 480px) {
+  main {
+    margin-top: 50px;
+  }
+  .score {
+    margin: 25px auto;
+  }
+  .teams {
+    margin-bottom: 25px;
+  }
+  main a {
+    margin-top: 20px;
+  }
 }
