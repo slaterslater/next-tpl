@@ -146,12 +146,10 @@ main {
 
 /* STATS PAGE */
 
-
-
 main {
   max-width: 580px;
   margin: auto;
-  margin-top: 20px;
+  margin-top: 5px;
   padding: 0 5px;
 }
 
