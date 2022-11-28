@@ -1,7 +1,8 @@
 // Schedule.js
 
+import dayjs from "dayjs";
 import { useMemo } from "react";
-import Link from 'next/link';
+import GameLink from "./GameLink";
 
 export default function Schedule({games}) {
 
@@ -29,7 +30,7 @@ export default function Schedule({games}) {
     );
 
     return weeks.sort((a, b) => 
-      new Date(b.date).getTime() - new Date(a.date).getTime()
+      dayjs(b.date).unix() - dayjs(a.date).unix()
     );
 
   }, [games]);
@@ -37,21 +38,7 @@ export default function Schedule({games}) {
   return schedule.map((week, i) => (
     <div className="week" key={week.date}>
       <p>{`Week ${schedule.length - i}:`} <span>{`${week.date.split(",")[0]}`}</span></p>
-      {week.games.map((game) => {
-        const [hh, mm] = game.time.split("-")[0].split(":");
-        const href = `/${game.id}-${game.awayTeamId}-${game.homeTeamId}`;
-        
-        return (
-          <Link className="game" href={href} key={game.id} replace>
-            <div className="field">
-              <span>{`${hh % 12}:${mm}`}</span>
-              <span>{game.location}</span>
-            </div>
-            <span>{game.awayTeam}</span>
-            <span>{game.homeTeam}</span>
-          </Link>
-        );
-      })}
+      {week.games.map((game) => <GameLink key={game.id} game={game} />)}
     </div>
   ));
 }

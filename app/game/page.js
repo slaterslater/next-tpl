@@ -8,14 +8,13 @@ import { useTeamContext } from "../context/teamContext"
 import { initTeam } from "../utils/lib"
 import Stats from "./Stats"
 
-export default function GamePage({ params }) {
+export default function GamePage({ searchParams }) {
 
-  // url cleaner
   useEffect(()=> {
     window.history.replaceState(null, '', '/')
   }, [])
   
-  const [gameId, awayId, homeId] = params.game.split("-");
+  const { gameId, awayId, homeId, gameTimeEnd } = searchParams
 
   const { teams } = useTeamContext()
 
@@ -42,11 +41,13 @@ export default function GamePage({ params }) {
           teamName={awayTeamName} 
           onClick={() => setInView(awayId)} 
           inView={inView === awayId} 
+          gameTimeEnd={gameTimeEnd}
         />
         <TeamButton 
           teamName={homeTeamName} 
           onClick={() => setInView(homeId)} 
           inView={inView === homeId} 
+          gameTimeEnd={gameTimeEnd}
         />
       </div>
       <Stats
