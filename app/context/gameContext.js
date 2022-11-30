@@ -1,13 +1,14 @@
 'use client';
 
 import dayjs from "dayjs";
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import useSWR from "swr";
 import { getData } from "../utils/lib";
 
 export const GameContext = createContext(null);
 const useGameContext = () => useContext(GameContext)
 
-const GameProvider = ({value, children}) => {
+const GameProvider = ({ children }) => {
   const defaultValues = {
     gameId: null,
     awayId: null,
@@ -18,41 +19,47 @@ const GameProvider = ({value, children}) => {
   const [teams, setTeams] = useState([])
   const [weeks, setWeeks] = useState([])
 
+  const teamPath = `teams/${process.env.NEXT_PUBLIC_LEAGUE_ID}`
+  const gamePath = `games/${process.env.NEXT_PUBLIC_LEAGUE_ID}`
+
+  const { data: teamData } = useSWR(teamPath, getData)
+  const { data: gameData } = useSWR(gamePath, getData)
+
   useEffect(() => {
-    (async () => {
-      const teamData = await getData(`teams/${process.env.NEXT_PUBLIC_LEAGUE_ID}`)
-      const gameData = await getData(`games/${process.env.NEXT_PUBLIC_LEAGUE_ID}`)
+    if (!teamData) return
+    setTeams(teamData)
+  }, [teamData])
 
-      const schedule = gameData.reduce((weeks, game) => {
-        const { date } = game;
-        const day = weeks.find((week) => week.date === date);
-        if (!day) {
-          weeks.push({
-            date,
-            games: [game],
-          });
-        } else {
-          day.games.push(game);
-        }
-        return weeks;
-      }, []);
-  
-      schedule.forEach(({ games }) =>
-        games.sort((a, b) => {
-          const timeDiff = a.time.localeCompare(b.time);
-          if (timeDiff !== 0) return timeDiff;
-          return a.location.localeCompare(b.location);
-        })
-      );
-  
-      schedule.sort((a, b) => 
-        dayjs(b.date).unix() - dayjs(a.date).unix()
-      );
+  useEffect(() => {
+    if (!gameData) return
+    const schedule = gameData.reduce((weeks, game) => {
+      const { date } = game;
+      const day = weeks.find((week) => week.date === date);
+      if (!day) {
+        weeks.push({
+          date,
+          games: [game],
+        });
+      } else {
+        day.games.push(game);
+      }
+      return weeks;
+    }, []);
 
-      setTeams(teamData)
-      setWeeks(schedule)
-    })()
-  }, [])
+    schedule.forEach(({ games }) =>
+      games.sort((a, b) => {
+        const timeDiff = a.time.localeCompare(b.time);
+        if (timeDiff !== 0) return timeDiff;
+        return a.location.localeCompare(b.location);
+      })
+    );
+
+    schedule.sort((a, b) => 
+      dayjs(b.date).unix() - dayjs(a.date).unix()
+    );
+
+    setWeeks(schedule)
+  }, [gameData])
 
   const setActiveGame = activeGame => {
     const { id, awayTeamId, homeTeamId, date, time } = activeGame

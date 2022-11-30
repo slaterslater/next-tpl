@@ -4,7 +4,7 @@
 import { GameProvider } from "./context/gameContext";
 import './global.css';
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
