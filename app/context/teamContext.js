@@ -3,7 +3,7 @@
 import { createContext, useContext, useState } from "react";
 
 export const GameContext = createContext(null);
-const useGameContext = () => useContext(TeamContext)
+const useGameContext = () => useContext(GameContext)
 
 const GameProvider = ({value, children}) => {
   const defaultValues = {

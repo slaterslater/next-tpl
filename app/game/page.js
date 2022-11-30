@@ -4,13 +4,13 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { useTeamContext } from "../context/teamContext"
+import { useGameContext } from "../context/teamContext"
 import { initTeam } from "../utils/lib"
 import Stats from "./Stats"
 
 export default function GamePage() {
 
-  const {teams, game} = useTeamContext()
+  const {teams, game} = useGameContext()
   const {gameId, awayId, homeId, gameTimeEnd} = game
 
   const [inView, setInView] = useState(awayId)
