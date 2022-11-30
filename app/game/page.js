@@ -10,28 +10,25 @@ import Stats from "./Stats"
 
 export default function GamePage({ searchParams }) {
 
-  useEffect(()=> {
-    window.history.replaceState(null, '', '/')
-  }, [])
-  
   const { gameId, awayId, homeId, gameTimeEnd } = searchParams
-
   const { teams } = useTeamContext()
-
-  const [awayTeamName, homeTeamName] = useMemo(() => (
-    [awayId, homeId].map(teamId => (
-      teams.find(team => team.id === teamId).teamName
-    ))  
-  ), [teams, awayId, homeId])
-
   const [inView, setInView] = useState(awayId)
-
   const [awayTeam, setAwayTeam] = useState(() => initTeam())
   const [homeTeam, setHomeTeam] = useState(() => initTeam())
   
+  const [awayTeamName, homeTeamName] = useMemo(() => (
+    [awayId, homeId].map(teamId => (
+      teams.find(team => team.id === teamId)?.teamName
+    ))  
+  ), [teams, awayId, homeId])
+
   const score = useMemo(() => (
     `${awayTeam.total.Goal} - ${homeTeam.total.Goal}`
   ), [awayTeam, homeTeam])
+
+  useEffect(()=> {
+    window.history.replaceState(null, '', '/')
+  }, [])
 
   return (
     <main>
