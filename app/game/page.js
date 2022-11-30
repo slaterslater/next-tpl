@@ -11,6 +11,8 @@ import Stats from "./Stats"
 export default function GamePage({ searchParams }) {
 
   const { gameId, awayId, homeId, gameTimeEnd } = searchParams
+console.log({ gameId, awayId, homeId, gameTimeEnd, searchParams })
+
   const { teams } = useTeamContext()
   const [inView, setInView] = useState(awayId)
   const [awayTeam, setAwayTeam] = useState(() => initTeam())
