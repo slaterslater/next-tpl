@@ -1,7 +1,7 @@
 'use client';
 
 import dayjs from "dayjs";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 import useSWR from "swr";
 import { getData } from "../utils/lib";
 
@@ -16,23 +16,17 @@ const GameProvider = ({ children }) => {
     gameTimeEnd: 0
   }
   const [game, setGame] = useState(defaultValues)
-  const [teams, setTeams] = useState([])
-  const [weeks, setWeeks] = useState([])
 
   const teamPath = `teams/${process.env.NEXT_PUBLIC_LEAGUE_ID}`
   const gamePath = `games/${process.env.NEXT_PUBLIC_LEAGUE_ID}`
 
-  const { data: teamData } = useSWR(teamPath, getData)
-  const { data: gameData } = useSWR(gamePath, getData)
+  const { data: teams } = useSWR(teamPath, getData)
+  const { data: games } = useSWR(gamePath, getData)
 
-  useEffect(() => {
-    if (!teamData) return
-    setTeams(teamData)
-  }, [teamData])
+  const weeks = useMemo(() => {
+    if (!games) return []
 
-  useEffect(() => {
-    if (!gameData) return
-    const schedule = gameData.reduce((weeks, game) => {
+    const schedule = games.reduce((weeks, game) => {
       const { date } = game;
       const day = weeks.find((week) => week.date === date);
       if (!day) {
@@ -54,12 +48,10 @@ const GameProvider = ({ children }) => {
       })
     );
 
-    schedule.sort((a, b) => 
+    return schedule.sort((a, b) => 
       dayjs(b.date).unix() - dayjs(a.date).unix()
     );
-
-    setWeeks(schedule)
-  }, [gameData])
+  }, [games])
 
   const setActiveGame = activeGame => {
     const { id, awayTeamId, homeTeamId, date, time } = activeGame

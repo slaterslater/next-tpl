@@ -19,7 +19,7 @@ export default function GamePage() {
 
   const score = `${awayTeam.total.Goal} - ${homeTeam.total.Goal}`
 
-  if (!(teams.length || awayId || gameId)) return <div>loading...</div>
+  if (!(teams || awayId || gameId)) return <div>loading...</div>
   return (
     <main>
       <div className="score" key={score}>{score}</div>
