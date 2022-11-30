@@ -4,14 +4,19 @@
 
 import Link from "next/link"
 import { useEffect, useMemo, useState } from "react"
+import { useSearchParams } from 'next/navigation';
 import { useTeamContext } from "../context/teamContext"
 import { initTeam } from "../utils/lib"
 import Stats from "./Stats"
 
-export default function GamePage({ searchParams }) {
+export default function GamePage() {
 
-  const { gameId, awayId, homeId, gameTimeEnd } = searchParams
-console.log({ gameId, awayId, homeId, gameTimeEnd, searchParams })
+  const searchParams = useSearchParams();
+
+  const gameId = searchParams.get('gameId');
+  const awayId = searchParams.get('awayId');
+  const homeId = searchParams.get('homeId');
+  const gameTimeEnd = searchParams.get('gameTimeEnd');
 
   const { teams } = useTeamContext()
   const [inView, setInView] = useState(awayId)
@@ -22,20 +27,9 @@ console.log({ gameId, awayId, homeId, gameTimeEnd, searchParams })
     `${awayTeam.total.Goal} - ${homeTeam.total.Goal}`
   ), [awayTeam, homeTeam])
 
-  // const teamStats = useMemo(() => [
-  //   {
-  //     teamId: awayId,
-  //     setTeam: setAwayTeam,
-  //     team: awayTeam
-  //   },
-  //   {
-  //     teamId: homeId,
-  //     setTeam: setHomeTeam,
-  //     team: homeTeam
-  //   },
-  // ], [])
-
   useEffect(()=> {
+    console.log('clear url params')
+    if (window) console.log('...ok')
     window.history.replaceState(null, '', '/')
   }, [])
 
@@ -57,15 +51,6 @@ console.log({ gameId, awayId, homeId, gameTimeEnd, searchParams })
           )
         })}
       </div>
-      {/* {.map(({teamId, team, setTeam}) => (
-        <Stats
-          key={`stats-${teamId}`}
-          inView={inView === teamId}
-          path={`gameEvents/${gameId}/${teamId}`}
-          setTeam={setTeam}
-          team={team}
-        />
-      ))} */}
       <Stats
         key={`stats-${awayId}`}
         inView={inView === awayId}
