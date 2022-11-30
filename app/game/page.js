@@ -15,12 +15,6 @@ export default function GamePage({ searchParams }) {
   const [inView, setInView] = useState(awayId)
   const [awayTeam, setAwayTeam] = useState(() => initTeam())
   const [homeTeam, setHomeTeam] = useState(() => initTeam())
-  
-  const [awayTeamName, homeTeamName] = useMemo(() => (
-    [awayId, homeId].map(teamId => (
-      teams.find(team => team.id === teamId)?.teamName
-    ))  
-  ), [teams, awayId, homeId])
 
   const score = useMemo(() => (
     `${awayTeam.total.Goal} - ${homeTeam.total.Goal}`
@@ -34,18 +28,19 @@ export default function GamePage({ searchParams }) {
     <main>
       <div className="score" key={score}>{score}</div>
       <div className="teams">
-        <TeamButton 
-          teamName={awayTeamName} 
-          onClick={() => setInView(awayId)} 
-          inView={inView === awayId} 
-          gameTimeEnd={gameTimeEnd}
-        />
-        <TeamButton 
-          teamName={homeTeamName} 
-          onClick={() => setInView(homeId)} 
-          inView={inView === homeId} 
-          gameTimeEnd={gameTimeEnd}
-        />
+        {[awayId, homeId].map(id => {
+          if (!id) return null
+          const {teamName} = teams.find(team => team.id === id)
+          return (
+            <TeamButton
+              key={id} 
+              teamName={teamName} 
+              onClick={() => setInView(id)} 
+              inView={inView === id} 
+              gameTimeEnd={gameTimeEnd}
+            />
+          )
+        })}
       </div>
       <Stats
         inView={inView === awayId}
