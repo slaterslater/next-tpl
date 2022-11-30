@@ -20,6 +20,19 @@ export default function GamePage({ searchParams }) {
     `${awayTeam.total.Goal} - ${homeTeam.total.Goal}`
   ), [awayTeam, homeTeam])
 
+  // const teamStats = useMemo(() => [
+  //   {
+  //     teamId: awayId,
+  //     setTeam: setAwayTeam,
+  //     team: awayTeam
+  //   },
+  //   {
+  //     teamId: homeId,
+  //     setTeam: setHomeTeam,
+  //     team: homeTeam
+  //   },
+  // ], [])
+
   useEffect(()=> {
     window.history.replaceState(null, '', '/')
   }, [])
@@ -33,7 +46,7 @@ export default function GamePage({ searchParams }) {
           const {teamName} = teams.find(team => team.id === id)
           return (
             <TeamButton
-              key={id} 
+              key={`button-${id}`} 
               teamName={teamName} 
               onClick={() => setInView(id)} 
               inView={inView === id} 
@@ -42,13 +55,24 @@ export default function GamePage({ searchParams }) {
           )
         })}
       </div>
+      {/* {.map(({teamId, team, setTeam}) => (
+        <Stats
+          key={`stats-${teamId}`}
+          inView={inView === teamId}
+          path={`gameEvents/${gameId}/${teamId}`}
+          setTeam={setTeam}
+          team={team}
+        />
+      ))} */}
       <Stats
+        key={`stats-${awayId}`}
         inView={inView === awayId}
         path={`gameEvents/${gameId}/${awayId}`}
         setTeam={setAwayTeam}
         team={awayTeam}
       />
       <Stats
+        key={`stats-${homeId}`}
         inView={inView === homeId}
         path={`gameEvents/${gameId}/${homeId}`}
         setTeam={setHomeTeam}
