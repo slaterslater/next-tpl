@@ -1,14 +1,24 @@
 'use client';
 
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
-export const TeamContext = createContext(null);
-const useTeamContext = () => useContext(TeamContext)
+export const GameContext = createContext(null);
+const useGameContext = () => useContext(TeamContext)
 
-const TeamProvider = ({value, children}) => (
-  <TeamContext.Provider value={value}>
-    {children}
-  </TeamContext.Provider>
-)
+const GameProvider = ({value, children}) => {
+  const defaultValues = {
+    gameId: null,
+    awayId: null,
+    homeId: null,
+    gameTimeEnd: 0
+  }
+  const [game, setGame] = useState(defaultValues)
+  
+  return (
+    <GameContext.Provider value={{...value, game, setGame}}>
+      {children}
+    </GameContext.Provider>
+  )
+}
 
-export {TeamProvider, useTeamContext}
+export {GameProvider, useGameContext}

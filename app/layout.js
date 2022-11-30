@@ -1,7 +1,7 @@
 // layout.js
 // Root layout
 
-import { TeamProvider } from "./context/teamContext";
+import { GameProvider } from "./context/teamContext";
 import { getData } from "./utils/lib";
 import './global.css';
 
@@ -16,9 +16,9 @@ export default async function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
       </head>
       <body>
-        <TeamProvider value={{teams}}>
+        <GameProvider value={{teams}}>
           {children}
-        </TeamProvider>
+        </GameProvider>
       </body>
     </html>
   );

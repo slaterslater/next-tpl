@@ -3,35 +3,21 @@
 'use client'
 
 import Link from "next/link"
-import { useEffect, useMemo, useState } from "react"
-import { useSearchParams } from 'next/navigation';
+import { useState } from "react"
 import { useTeamContext } from "../context/teamContext"
 import { initTeam } from "../utils/lib"
 import Stats from "./Stats"
 
 export default function GamePage() {
 
-  const searchParams = useSearchParams();
+  const {teams, game} = useTeamContext()
+  const {gameId, awayId, homeId, gameTimeEnd} = game
 
-  const gameId = searchParams.get('gameId');
-  const awayId = searchParams.get('awayId');
-  const homeId = searchParams.get('homeId');
-  const gameTimeEnd = searchParams.get('gameTimeEnd');
-
-  const { teams } = useTeamContext()
   const [inView, setInView] = useState(awayId)
   const [awayTeam, setAwayTeam] = useState(() => initTeam())
   const [homeTeam, setHomeTeam] = useState(() => initTeam())
 
-  const score = useMemo(() => (
-    `${awayTeam.total.Goal} - ${homeTeam.total.Goal}`
-  ), [awayTeam, homeTeam])
-
-  useEffect(()=> {
-    console.log('clear url params')
-    if (window) console.log('...ok')
-    window.history.replaceState(null, '', '/')
-  }, [])
+  const score = `${awayTeam.total.Goal} - ${homeTeam.total.Goal}`
 
   return (
     <main>
