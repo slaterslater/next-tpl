@@ -10,6 +10,12 @@ export default function Stats({ inView, path, team, setTeam, gameTimeEnd}) {
   const refreshInterval = dayjs().unix() < gameTimeEnd ? 5000 : null
   const { data } = useSWR(path, getData, { refreshInterval })
 
+  useEffect(()=> {
+    console.log('clear url params from stat component')
+    // if (window) console.log('...ok')
+    window.history.replaceState(null, '', '/')
+  }, [])
+
   useEffect(() => {
     const { sequence } = team.lastEvent
     if (!data || data.length === sequence) return
