@@ -4,7 +4,7 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { useGameContext } from "../context/teamContext"
+import { useGameContext } from "../context/gameContext"
 import { initTeam } from "../utils/lib"
 import Stats from "./Stats"
 
@@ -24,15 +24,13 @@ export default function GamePage() {
       <div className="score" key={score}>{score}</div>
       <div className="teams">
         {[awayId, homeId].map(id => {
-          if (!id) return null
-          const {teamName} = teams.find(team => team.id === id)
+          const { teamName } = teams.find(team => team.id === id)
           return (
             <TeamButton
               key={`button-${id}`} 
               teamName={teamName} 
               onClick={() => setInView(id)} 
               inView={inView === id} 
-              gameTimeEnd={gameTimeEnd}
             />
           )
         })}
@@ -43,6 +41,7 @@ export default function GamePage() {
         path={`gameEvents/${gameId}/${awayId}`}
         setTeam={setAwayTeam}
         team={awayTeam}
+        gameTimeEnd={gameTimeEnd}
       />
       <Stats
         key={`stats-${homeId}`}
@@ -50,6 +49,7 @@ export default function GamePage() {
         path={`gameEvents/${gameId}/${homeId}`}
         setTeam={setHomeTeam}
         team={homeTeam}
+        gameTimeEnd={gameTimeEnd}
       />
       <Link href='/'>back</Link>
     </main>

@@ -1,14 +1,10 @@
 // layout.js
 // Root layout
 
-import { GameProvider } from "./context/teamContext";
-import { getData } from "./utils/lib";
+import { GameProvider } from "./context/gameContext";
 import './global.css';
 
-export default async function RootLayout({ children }) {
-  
-  const teams = await getData(`teams/${process.env.LEAGUE_ID}`)
-
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
@@ -17,7 +13,7 @@ export default async function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
       </head>
       <body>
-        <GameProvider value={{teams}}>
+        <GameProvider>
           {children}
         </GameProvider>
       </body>

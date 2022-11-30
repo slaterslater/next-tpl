@@ -1,12 +1,9 @@
 // page.js
 // Homepage
 
+import { useGameContext } from "./context/gameContext";
 import Schedule from "./Schedule";
-import { getData } from "./utils/lib";
 
-export default async function Page() {
-  
-  const games = await getData(`games/${process.env.LEAGUE_ID}`)
-
-  return <Schedule games={games} />;
+export default function Page() {
+  return <Schedule />;
 }

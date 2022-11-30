@@ -8,6 +8,7 @@ import { getData, processTeamData, statNames } from "../utils/lib"
 export default function Stats({ inView, path, team, setTeam, gameTimeEnd}) { 
   
   const refreshInterval = dayjs().unix() < gameTimeEnd ? 5000 : null
+  
   const { data } = useSWR(path, getData, { refreshInterval })
 
   useEffect(() => {
