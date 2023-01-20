@@ -9,7 +9,7 @@ import Spinner from "./Spinner";
 export default function Schedule() {
   const { weeks } = useGameContext()
 
-  if (!weeks.length) <Spinner />
+  if (!weeks.length) return <Spinner />
   
   return weeks.map((week, i) => (
     <div className="week" key={week.date}>
