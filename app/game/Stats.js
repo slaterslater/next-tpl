@@ -13,8 +13,9 @@ export default function Stats({ inView, path, team, setTeam, gameTimeEnd}) {
 
   useEffect(() => {
     const { sequence } = team.lastEvent
-    if (!data || data.length === sequence) return
     
+    if (!data || data[data.length -1].sequence === sequence) return
+
     const newData = data
       .slice(sequence)
       .sort((a, b) => a.sequence - b.sequence)
