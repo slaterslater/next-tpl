@@ -8,12 +8,11 @@ import { getData, processTeamData, statNames } from "../utils/lib"
 export default function Stats({ inView, path, team, setTeam, gameTimeEnd}) { 
   
   const refreshInterval = dayjs().unix() < gameTimeEnd ? 5000 : null
-  
+
   const { data } = useSWR(path, getData, { refreshInterval })
 
   useEffect(() => {
     const { sequence } = team.lastEvent
-    
     if (!data || data[data.length -1].sequence === sequence) return
 
     const newData = data
@@ -23,7 +22,7 @@ export default function Stats({ inView, path, team, setTeam, gameTimeEnd}) {
     const updatedTeamData = processTeamData(team, newData)
     setTeam({...updatedTeamData})
 
-  }, [data, team, setTeam])
+  }, [data])
 
   if (!inView) return null
   return (

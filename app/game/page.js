@@ -5,6 +5,7 @@
 import Link from "next/link"
 import { useState } from "react"
 import { useGameContext } from "../context/gameContext"
+import Spinner from "../Spinner"
 import { initTeam } from "../utils/lib"
 import Stats from "./Stats"
 
@@ -19,7 +20,7 @@ export default function GamePage() {
 
   const score = `${awayTeam.total.Goal} - ${homeTeam.total.Goal}`
 
-  if (!(teams || awayId || gameId)) return <div>loading...</div>
+  if (!(teams && awayId && gameId)) return <Spinner />
   return (
     <main>
       <div className="score" key={score}>{score}</div>
