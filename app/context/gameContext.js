@@ -20,8 +20,8 @@ const GameProvider = ({ children }) => {
   const teamPath = `teams/${process.env.NEXT_PUBLIC_LEAGUE_ID}`
   const gamePath = `games/${process.env.NEXT_PUBLIC_LEAGUE_ID}`
 
-  const { data: teams } = useSWR(teamPath, getData)
-  const { data: games } = useSWR(gamePath, getData)
+  const { data: teams } = useSWR(teamPath, getData, {revalidateOnFocus: false})
+  const { data: games } = useSWR(gamePath, getData, {revalidateOnFocus: false})
 
   const weeks = useMemo(() => {
     if (!games) return []
