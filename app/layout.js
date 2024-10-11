@@ -7,6 +7,8 @@ import { GameProvider } from "./context/gameContext";
 import './global.css';
 
 export default async function RootLayout({ children }) {
+  const GAID = process.env.NEXT_PUBLIC_GAID
+
   return (
     <html lang="en">
       <head>
@@ -20,22 +22,15 @@ export default async function RootLayout({ children }) {
           {children}
         </GameProvider>
       </body>
-      <Script src="https://www.googletagmanager.com/gtag/js?id=G-E8FDJ5Y706" />
+      <Script src={`https://www.googletagmanager.com/gtag/js?id=${GAID}`} />
       <Script id="gtag">
-{`
+        {`
           window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-E8FDJ5Y706');
-`}
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${GAID}');
+        `}
       </Script>  
-
-
-
-      {/* <GoogleAnalytics gaId="G-E8FDJ5Y706" /> */}
-      {/* <GoogleAnalytics gaId={`${process.env.NEXT_PUBLIC_GAID}`} /> */}
-      
     </html>
   );
 }
