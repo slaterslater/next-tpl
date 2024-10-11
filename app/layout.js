@@ -1,7 +1,8 @@
 // layout.js
 // Root layout
 
-import { GoogleAnalytics } from '@next/third-parties/google'
+// import { GoogleAnalytics } from '@next/third-parties/google'
+import Script from 'next/script'
 import { GameProvider } from "./context/gameContext";
 import './global.css';
 
@@ -19,7 +20,22 @@ export default async function RootLayout({ children }) {
           {children}
         </GameProvider>
       </body>
-      <GoogleAnalytics gaId={`${process.env.NEXT_PUBLIC_GAID}`} />
+      <Script src="https://www.googletagmanager.com/gtag/js?id=G-E8FDJ5Y706" />
+      <Script id="gtag">
+{`
+          window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-E8FDJ5Y706');
+`}
+      </Script>  
+
+
+
+      {/* <GoogleAnalytics gaId="G-E8FDJ5Y706" /> */}
+      {/* <GoogleAnalytics gaId={`${process.env.NEXT_PUBLIC_GAID}`} /> */}
+      
     </html>
   );
 }
