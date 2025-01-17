@@ -1,7 +1,6 @@
 // layout.js
 // Root layout
 
-// import { GoogleAnalytics } from '@next/third-parties/google'
 import Script from 'next/script'
 import { GameProvider } from "./context/gameContext";
 import './global.css';
