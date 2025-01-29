@@ -3,7 +3,7 @@
 import dayjs from "dayjs"
 import { useEffect } from "react"
 import useSWR from "swr"
-import { getData, processTeamData, statNames } from "../utils/lib"
+import { getData, processTeamData, statNames } from "../../../utils/lib"
 
 export default function Stats({ inView, path, team, setTeam, gameTimeEnd}) { 
   

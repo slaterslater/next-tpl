@@ -4,9 +4,13 @@
 import Script from 'next/script'
 import { GameProvider } from "./context/gameContext";
 import './global.css';
+import { getData } from './utils/lib';
 
 export default async function RootLayout({ children }) {
   const GAID = process.env.NEXT_PUBLIC_GAID
+  const ID = process.env.NEXT_PUBLIC_LEAGUE_ID
+  const teams = await getData(`teams/${ID}`)
+  const games = await getData(`games/${ID}`)
 
   return (
     <html lang="en">
@@ -17,7 +21,7 @@ export default async function RootLayout({ children }) {
       </head>
       
       <body>
-        <GameProvider>
+        <GameProvider teams={teams} games={games}>
           {children}
         </GameProvider>
       </body>

@@ -1,7 +1,7 @@
 // page.js
 // Homepage
 
-import Schedule from "./Schedule";
+import Schedule from "./components/Schedule";
 
 export default function Page() {
   return <Schedule />;

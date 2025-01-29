@@ -1,18 +1,33 @@
-// [game]/page.js
+// game/[gameId]/page.js
 
-'use client'
+"use client";
 
+import { useParams } from "next/navigation";
 import Link from "next/link"
-import { useState } from "react"
-import { useGameContext } from "../context/gameContext"
-import Spinner from "../Spinner"
-import { initTeam } from "../utils/lib"
-import Stats from "./Stats"
+import { useMemo, useState } from "react"
+import { useGameContext } from "../../../../context/gameContext";
+import Spinner from "../../../../components/Spinner"
+import Stats from "../Stats"
+import { initTeam } from "../../../../utils/lib";
+import dayjs from "dayjs";
 
 export default function GamePage() {
 
-  const {teams, game} = useGameContext()
-  const {gameId, awayId, homeId, gameTimeEnd} = game
+  const {teams, weeks} = useGameContext()
+  const params = useParams();
+
+  const {gameId, awayId, homeId, gameTimeEnd} = useMemo(() => {
+    const {length} = weeks
+    const {weekNum, gameNum} = params
+
+    const week = weeks[weekNum - length]
+    const game = week?.games[gameNum - 1]
+    
+    const hh = game.time.slice(0,2)
+    const gameTimeEnd = dayjs(week.date).hour(hh).add(1, 'hour').unix()
+
+    return {gameId: game.id, awayId: game.awayTeamId, homeId: game.homeTeamId, gameTimeEnd}
+  }, [weeks, params])
 
   const [inView, setInView] = useState(awayId)
   const [awayTeam, setAwayTeam] = useState(() => initTeam())
