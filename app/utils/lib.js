@@ -62,8 +62,8 @@ export const processTeamData = (staleData, newEvents) => (
   }, staleData)
 )
 
-export const getData = async path => {
+export const getData = async (path, revalidate = false) => {
   const url = `${process.env.NEXT_PUBLIC_API_BASE}/${path}`
-  const res = await fetch(url)
+  const res = await fetch(url, { next: { revalidate } })
   return res.json()
 } 
