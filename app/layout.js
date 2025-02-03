@@ -6,11 +6,13 @@ import { GameProvider } from "./context/gameContext";
 import './global.css';
 import { getData } from './utils/lib';
 
+export const revalidate = 86400 // daily
+
 export default async function RootLayout({ children }) {
   const GAID = process.env.NEXT_PUBLIC_GAID
   const ID = process.env.NEXT_PUBLIC_LEAGUE_ID
   const teams = await getData(`teams/${ID}`)
-  const games = await getData(`games/${ID}`, 86400)
+  const games = await getData(`games/${ID}`)
 
   return (
     <html lang="en">
