@@ -10,23 +10,41 @@ import Spinner from "../../../../components/Spinner"
 import Stats from "../Stats"
 import { initTeam } from "../../../../utils/lib";
 import dayjs from "dayjs";
+import isBetween from 'dayjs/plugin/isBetween'
+dayjs.extend(isBetween);
 
 export default function GamePage() {
 
   const {teams, weeks} = useGameContext()
   const params = useParams();
 
-  const {gameId, awayId, homeId, gameTimeEnd} = useMemo(() => {
+  const {gameId, awayId, homeId, shouldRefresh} = useMemo(() => {
     const {length} = weeks
     const {weekNum, gameNum} = params
 
-    const week = weeks[weekNum - length]
+    const week = weeks[length - weekNum]
     const game = week?.games[gameNum - 1]
-    
-    const hh = game.time.slice(0,2)
-    const gameTimeEnd = dayjs(week.date).hour(hh).add(1, 'hour').unix()
 
-    return {gameId: game.id, awayId: game.awayTeamId, homeId: game.homeTeamId, gameTimeEnd}
+    const now = dayjs()
+    const gameDay = dayjs(game.date)
+    const isGameDay = now.isSame(gameDay, 'day')
+
+    let shouldRefresh = false
+
+    if (isGameDay){
+      const hh = game.time.slice(0,2) // start hour
+      const gameStart = gameDay.hour(hh)
+      const gameEnd = gameStart.add(1, 'hour')
+      shouldRefresh = now.isBetween(gameStart, gameEnd, 'hour', '[)') 
+      // https://day.js.org/docs/en/plugin/is-between
+    }
+
+    return {
+      gameId: game.id, 
+      awayId: game.awayTeamId, 
+      homeId: game.homeTeamId, 
+      shouldRefresh
+    }
   }, [weeks, params])
 
   const [inView, setInView] = useState(awayId)
@@ -58,7 +76,7 @@ export default function GamePage() {
         path={`gameEvents/${gameId}/${awayId}`}
         setTeam={setAwayTeam}
         team={awayTeam}
-        gameTimeEnd={gameTimeEnd}
+        shouldRefresh={shouldRefresh}
       />
       <Stats
         key={`stats-${homeId}`}
@@ -66,7 +84,7 @@ export default function GamePage() {
         path={`gameEvents/${gameId}/${homeId}`}
         setTeam={setHomeTeam}
         team={homeTeam}
-        gameTimeEnd={gameTimeEnd}
+        shouldRefresh={shouldRefresh}
       />
       <Link href='/'>back</Link>
     </main>
