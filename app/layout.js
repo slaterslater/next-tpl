@@ -1,10 +1,10 @@
 // layout.js
 // Root layout
 
-import Script from 'next/script'
 import { GameProvider } from "./context/gameContext";
 import './global.css';
 import { getData } from './utils/lib';
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 export const revalidate = 86400 // daily
 
@@ -27,15 +27,7 @@ export default async function RootLayout({ children }) {
           {children}
         </GameProvider>
       </body>
-      <Script src={`https://www.googletagmanager.com/gtag/js?id=${GAID}`} />
-      <Script id="gtag">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${GAID}');
-        `}
-      </Script>  
+      <GoogleAnalytics gaId={GAID} />
     </html>
   );
 }

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@netlify/plugin-nextjs": "^4.28.4-appdir.0",
+    "@next/third-parties": "^15.1.6",
     "dayjs": "^1.11.6",
     "next": "^15.1.6",
     "react": "18.2.0",
