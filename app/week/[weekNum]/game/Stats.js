@@ -3,12 +3,13 @@
 import { useEffect } from "react"
 import useSWR from "swr"
 import { getData, processTeamData, statNames } from "../../../utils/lib"
+import Spinner from "../../../components/Spinner"
 
 export default function Stats({ inView, path, team, setTeam, shouldRefresh}) { 
   
   const refreshInterval = shouldRefresh ? 5000 : null
 
-  const { data } = useSWR(path, getData, { refreshInterval })
+  const { data, error, isLoading } = useSWR(path, getData, { refreshInterval })
 
   useEffect(() => {
     const { sequence } = team.lastEvent
@@ -25,6 +26,7 @@ export default function Stats({ inView, path, team, setTeam, shouldRefresh}) {
   }, [data])
 
   if (!inView) return null
+  if (isLoading || error) return <Spinner />
   return (
     <table className="stats">
       <thead>

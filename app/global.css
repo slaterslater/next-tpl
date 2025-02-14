@@ -3,48 +3,129 @@
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-    display: block;
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
 }
 body {
-    line-height: 1;
+  line-height: 1;
 }
-ol, ul {
-    list-style: none;
+ol,
+ul {
+  list-style: none;
 }
-blockquote, q {
-    quotes: none;
+blockquote,
+q {
+  quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-    content: '';
-    content: none;
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
 }
 table {
-    border-collapse: collapse;
-    border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 /* ****** */
@@ -58,10 +139,10 @@ body {
   font-family: Tahoma, sans-serif;
   /* font-size: 100%; */
   text-size-adjust: none;
-  -webkit-user-select: none; /* Safari */        
--moz-user-select: none; /* Firefox */
--ms-user-select: none; /* IE10+/Edge */
-user-select: none; /* Standard */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
 }
 
 a {
@@ -97,11 +178,11 @@ main {
 /* SCHEDULE */
 
 .week {
-  width:100%;
+  width: 100%;
   max-width: 580px;
-  display:flex;
+  display: flex;
   flex-direction: column;
-  justify-content: 'center';
+  justify-content: "center";
   margin: 35px auto;
   padding-bottom: 25px;
 }
@@ -121,7 +202,7 @@ main {
   padding-left: 5px;
 }
 
-.game { 
+.game {
   display: grid;
   width: 100%;
   grid-template-columns: 60px 1fr 1fr;
@@ -139,7 +220,7 @@ main {
   align-items: center;
 }
 
-.game:nth-child(even){
+.game:nth-child(even) {
   background-color: #efefef;
 }
 
@@ -147,7 +228,6 @@ main {
   justify-content: space-between;
   font-size: 0.7rem;
 }
-
 
 /* STATS PAGE */
 
@@ -160,26 +240,26 @@ main {
 
 main a {
   text-align: center;
-  margin:auto;
+  margin: auto;
   margin-top: 10px;
   padding: 18px 50px;
-  background-color: #efefef;;
+  background-color: #efefef;
   border: 2px solid darkgrey;
   line-height: 0;
   font-size: 0.8rem;
-    /* line-height: 3; */
+  /* line-height: 3; */
 }
 
 .navBack {
   font-size: 2rem;
   color: black;
-  align-self:flex-end;
-  height:0;
+  align-self: flex-end;
+  height: 0;
   transform: translate(-25px, 25px);
 }
 
 .score {
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   font-size: 2.2rem;
   text-align: center;
   margin: 15px auto;
@@ -190,7 +270,7 @@ main a {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  white-space : nowrap;
+  white-space: nowrap;
   gap: 0;
   /* margin: 12px 0px; */
   margin-bottom: 12px;
@@ -206,7 +286,7 @@ main a {
   overflow: hidden;
 }
 
- .inView {
+.inView {
   border-color: darkgrey;
   background-color: #efefef;
 }
@@ -217,13 +297,13 @@ main a {
   width: 100%;
   border-collapse: collapse;
   text-align: center;
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
 }
 
 .stats tr {
-  display:grid;
+  display: grid;
   grid-template-columns: 130px repeat(8, 1fr);
-  white-space : nowrap;
+  white-space: nowrap;
 }
 
 .stats tr *:first-child {
@@ -237,23 +317,24 @@ main a {
   background-color: #efefef;
 }
 
-.stats tr td:nth-child(5), .stats tr td:nth-child(7) {
+.stats tr td:nth-child(5),
+.stats tr td:nth-child(7) {
   border-right: 1px solid darkgrey;
 }
 
 .stats tr.callahan td:nth-child(2) {
   background: url("/circle.png") no-repeat center;
-} 
+}
 
-.stats thead th, .stats tr.total td {
+.stats thead th,
+.stats tr.total td {
   background-color: #dcdcdc;
   font-size: 0.75rem;
   font-weight: bold;
   line-height: 0;
   padding: 16px 0;
   border-color: none;
-  border:none;
-  
+  border: none;
 }
 
 .stats td {
@@ -284,7 +365,7 @@ main a {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   height: 80px;
   height: 65vh;
 }
@@ -295,7 +376,7 @@ main a {
   width: 64px;
   height: 64px;
   margin: 8px;
-  border: 8px solid darkgrey;
+  border: 3px solid darkgrey;
   border-radius: 50%;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   border-color: darkgrey transparent transparent transparent;
