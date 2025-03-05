@@ -3,10 +3,10 @@
 import dayjs from "dayjs";
 import { createContext, useContext, useMemo } from "react";
 
-export const GameContext = createContext(null);
-const useGameContext = () => useContext(GameContext)
+export const LeagueContext = createContext(null);
+const useLeagueContext = () => useContext(LeagueContext)
 
-const GameProvider = ({teams, games, children }) => {
+const LeagueProvider = ({teams, games, children}) => {
 
   const weeks = useMemo(() => {
     if (!games) return []
@@ -39,10 +39,10 @@ const GameProvider = ({teams, games, children }) => {
   }, [games])
 
   return (
-    <GameContext.Provider value={{teams, weeks}}>
+    <LeagueContext.Provider value={{teams, games, weeks}}>
       {children}
-    </GameContext.Provider>
+    </LeagueContext.Provider>
   )
 }
 
-export {GameProvider, useGameContext}
+export {LeagueProvider, useLeagueContext}

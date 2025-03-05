@@ -2,12 +2,12 @@
 
 'use client'
 
-import { useGameContext } from "../context/gameContext";
+import { useLeagueContext } from "../context/leagueContext";
 import GameLink from "./GameLink";
 import Spinner from "./Spinner";
 
 export default function Schedule() {
-  const { weeks } = useGameContext()
+  const { weeks } = useLeagueContext()
   const {length} = weeks
 
   if (!length) return <Spinner />

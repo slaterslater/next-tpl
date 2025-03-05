@@ -5,7 +5,7 @@
 import { useParams } from "next/navigation";
 import Link from "next/link"
 import { useMemo, useState } from "react"
-import { useGameContext } from "../../../../context/gameContext";
+import { useLeagueContext } from "../../../../context/leagueContext";
 import Spinner from "../../../../components/Spinner"
 import Stats from "../Stats"
 import { initTeam } from "../../../../utils/lib";
@@ -15,7 +15,7 @@ dayjs.extend(isBetween);
 
 export default function GamePage() {
 
-  const {teams, weeks} = useGameContext()
+  const {teams, weeks} = useLeagueContext()
   const params = useParams();
 
   const {gameId, awayId, homeId, shouldRefresh} = useMemo(() => {

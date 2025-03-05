@@ -3,6 +3,6 @@
 
 import Schedule from "./components/Schedule";
 
-export default function Page() {
+export default async function Page() {
   return <Schedule />;
 }

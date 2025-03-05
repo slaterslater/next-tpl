@@ -1,15 +1,15 @@
 // layout.js
 // Root layout
 
-import { GameProvider } from "./context/gameContext";
+import { LeagueProvider } from "./context/leagueContext";
 import './global.css';
 import { getData } from './utils/lib';
 import { GoogleAnalytics } from '@next/third-parties/google'
 
-export default async function RootLayout({ children }) {
-  const GAID = process.env.NEXT_PUBLIC_GAID
-  const ID = process.env.NEXT_PUBLIC_LEAGUE_ID
+const GAID = process.env.NEXT_PUBLIC_GAID
+const ID = process.env.NEXT_PUBLIC_LEAGUE_ID
 
+export default async function RootLayout({ children }) {
   const revalidate = { next: { revalidate: 14400 }} // every 4 hours
 
   const teams = await getData(`teams/${ID}`, revalidate)
@@ -24,9 +24,9 @@ export default async function RootLayout({ children }) {
       </head>
       
       <body>
-        <GameProvider teams={teams} games={games}>
+        <LeagueProvider teams={teams} games={games}>
           {children}
-        </GameProvider>
+        </LeagueProvider>
       </body>
       <GoogleAnalytics gaId={GAID} />
     </html>
