@@ -6,9 +6,10 @@ import { useLeagueContext } from "../context/leagueContext";
 import GameLink from "./GameLink";
 import Spinner from "./Spinner";
 
-export default function Schedule() {
+export default function Schedule({data}) {
+  
   const { weeks } = useLeagueContext()
-  const {length} = weeks
+  const { length } = weeks
 
   if (!length) return <Spinner />
 
