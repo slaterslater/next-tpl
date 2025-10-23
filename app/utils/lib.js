@@ -1,44 +1,44 @@
 // lib.js
 // helper functions
 
-export const statNames = ["Goal","Assist","2nd Assist","D","TA","Drop","Male","Female"];
+export const statNames = ["Goal", "Assist", "2nd Assist", "D", "TA", "Drop", "Male", "Female"];
 
 export const blankStats = Object.fromEntries(statNames.map(name => [name, 0]))
 
 export const initTeam = () => ({
-  total: {...blankStats},
+  total: { ...blankStats },
   lastEvent: { sequence: 0 },
   players: [],
 })
 
 export const processTeamData = (staleData, newEvents) => (
   newEvents.reduce((gameData, event) => {
-    
-    const {total, players, lastEvent} = gameData
-    
-    const { 
-      eventType, 
-      player : {id, playerName, gender} 
+
+    const { total, players, lastEvent } = gameData
+
+    const {
+      eventType,
+      player: { id, playerName, gender }
     } = event
 
     const initPlayer = {
-      id, 
-      playerName, 
-      gender, 
-      stats: {...blankStats}, 
+      id,
+      playerName,
+      gender,
+      stats: { ...blankStats },
     }
-    
-    let playerIndex = players.findIndex(p => 
+
+    let playerIndex = players.findIndex(p =>
       p?.playerName === playerName
     )
-    playerIndex = playerIndex < 0 ? players.length : playerIndex 
-    
+    playerIndex = playerIndex < 0 ? players.length : playerIndex
+
     const player = players[playerIndex] || initPlayer
-    const isPass = ![undefined, 'Goal','D','TA','Drop'].includes(lastEvent.eventType)
+    const isPass = ![undefined, 'Goal', 'D', 'TA', 'Drop'].includes(lastEvent.eventType)
 
     // if event not a D check if last event was a pass
-    if (!['D'].includes(eventType) && isPass){
-      const passerIndex = players.findIndex(passer => 
+    if (!['D'].includes(eventType) && isPass) {
+      const passerIndex = players.findIndex(passer =>
         passer.playerName === lastEvent.player.playerName
       )
       players[passerIndex].stats[gender] += 1
@@ -64,6 +64,17 @@ export const processTeamData = (staleData, newEvents) => (
 
 export const getData = async (path, options = {}) => {
   const url = `${process.env.NEXT_PUBLIC_API_BASE}/${path}`
-  const res = await fetch(url, options)
+
+  const fetchOptions = {
+    next: { revalidate: 14400 },
+    ...options
+  }
+
+  const res = await fetch(url, fetchOptions)
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch ${path}`)
+  }
+
   return res.json()
-} 
+}
