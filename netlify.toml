@@ -5,19 +5,24 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# Prevent RSC payload caching issues
+# Prevent caching of HTML pages
 [[headers]]
   for = "/"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
-    Content-Type = "text/html; charset=utf-8"
 
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Prevent RSC payload caching
 [[headers]]
   for = "/_next/data/*"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
-    Content-Type = "application/json"
 
+# Allow static assets to be cached
 [[headers]]
   for = "/_next/static/*"
   [headers.values]
